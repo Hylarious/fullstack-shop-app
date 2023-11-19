@@ -15,7 +15,7 @@ import { OrdersModule } from './orders/orders.module';
 @Module({
   imports: [
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'public'),
+      rootPath: join(__dirname, '../../', 'client', 'build')
     }),
     ProductsModule,
     OrdersModule

@@ -5,6 +5,7 @@ import { createSelector } from '@reduxjs/toolkit'
 /* ACTIONS */
 
 export const getAllProducts = ({ products }) => products.data;
+export const getProductById = ({products}, id) => products.data.find(p => p.id === id)
 export const getProductsByIds = createSelector( 
   [
     state => state.products.data,

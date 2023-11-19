@@ -41,6 +41,7 @@ export class OrdersService {
     /* Example body structure for creating order:
     {
      "orderData": {
+        "name": "John Doe"
         "email": "tester@gmail.com",
         "address": "1234 Elm Street, Apt 567, Cityville, Stateland, 56789"
         }, 

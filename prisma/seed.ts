@@ -187,6 +187,7 @@ function getOrders() {
     return [
         {
             id: 'fd105551-0f0d-4a9f-bc41-c559c8a17260',
+            name: 'John Doe',
             email: 'tester@example.com',
             address: '1234 Elm Street, Apt 567, Cityville, Stateland, 56789'
         }

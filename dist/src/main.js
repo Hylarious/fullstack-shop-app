@@ -8,7 +8,7 @@ async function bootstrap() {
     app.setGlobalPrefix('api');
     app.useGlobalPipes(new common_1.ValidationPipe({ transform: true }));
     await app.enableShutdownHooks();
-    await app.listen(8000);
+    await app.listen(8000, '0.0.0.0');
 }
 bootstrap();
 //# sourceMappingURL=main.js.map

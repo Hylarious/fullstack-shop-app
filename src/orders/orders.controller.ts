@@ -2,6 +2,11 @@ import { Body, Controller, Get, NotFoundException, Param, ParseUUIDPipe, Post } 
 import { OrdersService } from './orders.service';
 import { CreateOrderDTO } from './dtos/create-order.dto';
 
+type ProductOrder = {
+    id: string;
+    quantity: number;
+  };
+
 @Controller('orders')
 export class OrdersController {
     constructor(private ordersService: OrdersService) {}
@@ -18,8 +23,9 @@ async getById(@Param('id', new ParseUUIDPipe()) id: string) {
     return order
 }
 @Post('/')
-async create(@Body('orderData') orderData: CreateOrderDTO, @Body('productIds') productIds: string[]){
-    return this.ordersService.create(orderData, productIds);
+async create(@Body('orderData') orderData: CreateOrderDTO, @Body('products') products: ProductOrder[]){
+    console.log(Body)
+    return this.ordersService.create(orderData, products);
 }
     
 }

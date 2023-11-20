@@ -198,11 +198,13 @@ function getProductsOnOrders() {
     return [
         {
             productId: 'fd105551-0f0d-4a9f-bc41-c559c8a17210',
-            orderId: 'fd105551-0f0d-4a9f-bc41-c559c8a17260'
+            orderId: 'fd105551-0f0d-4a9f-bc41-c559c8a17260',
+            quantity: 1
         },
         {
             productId: 'fd105551-0f0d-4a9f-bc41-c559c8a17208',
-            orderId: 'fd105551-0f0d-4a9f-bc41-c559c8a17260'
+            orderId: 'fd105551-0f0d-4a9f-bc41-c559c8a17260',
+            quantity: 2
         },
     ]
 

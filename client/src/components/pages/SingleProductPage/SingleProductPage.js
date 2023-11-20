@@ -1,4 +1,5 @@
 import {
+  Alert,
   Button,
   Carousel,
   Col,
@@ -18,6 +19,7 @@ const SingleProductPage = () => {
   const { id } = useParams();
   const product = useSelector((state) => getProductById(state, id));
   const [count, setCount] = useState(1);
+  const [productAdded, setProductAdded] = useState(false);
 
   const handleCount = (_, count) => {
     setCount(count);
@@ -27,11 +29,20 @@ const SingleProductPage = () => {
     for (let i = 0; i <= count; i++) {
       dispatch(addItemToCart(id));
     }
+    setProductAdded(true);
+    setTimeout(() => {
+      setProductAdded(false);
+    }, 3000);
   };
 
   console.log(product);
   return (
     <div>
+      {productAdded && (
+        <Alert variant="success">
+          <Alert.Heading>Dodano do koszyka!</Alert.Heading>
+        </Alert>
+      )}
       {product ? (
         <Row>
           <Col xs="6">
@@ -48,7 +59,7 @@ const SingleProductPage = () => {
             <h4>{product.description}</h4>
             <p>{product.price} zł</p>
             <QuantityInput
-              count={count}
+              quantity={count}
               countUp={handleCount}
               countDown={handleCount}
             />

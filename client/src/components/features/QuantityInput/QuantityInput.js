@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { ButtonGroup, Button } from 'react-bootstrap';
 
 const QuantityInput = (props) => {
-  const [count, setCount] = useState(props.count);
+  const [count, setCount] = useState(props.quantity);
 
   const handleCountUp = (e) => {
     e.preventDefault();
@@ -19,7 +19,7 @@ const QuantityInput = (props) => {
   return (
     <ButtonGroup>
       <Button onClick={handleCountDown}>-</Button>
-      <p>{count}</p>
+      <div className='mx-2'>{count}</div>
       <Button onClick={handleCountUp}>+</Button>
     </ButtonGroup>
   );

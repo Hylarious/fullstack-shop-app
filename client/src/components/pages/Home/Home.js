@@ -1,11 +1,18 @@
-import { useSelector } from "react-redux";
-import { getAllProducts, getRequests } from "../../../redux/productsRedux";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllProducts, getRequests, loadProductsRequest } from "../../../redux/productsRedux";
 import Products from "../../features/Products/Products";
 import { Alert, ProgressBar } from "react-bootstrap";
+import { useEffect } from "react";
 
 
 
 const Home = () => {
+
+    const dispatch = useDispatch()
+    useEffect(() => {
+      dispatch(loadProductsRequest())
+    }, [dispatch])
+
     const products = useSelector(getAllProducts)
     const requests = useSelector(getRequests);
 

@@ -16,6 +16,8 @@ const ADD_ITEM_TO_CART = createActionName('ADD_ITEM_TO_CART');
 const DELETE_ITEMS_FORM_CART = createActionName('DELETE_ITEMS_FORM_CART');
 const PRODUCT_COUNT_DOWN = createActionName('PRODUCT_COUNT_DOWN');
 const ADD_ORDER_DATA = createActionName('ADD_ORDER_DATA');
+const ADD_ORDER_DESCRIPTION = createActionName('ADD_ORDER_DESCRIPTION');
+const DELETE_ORDER_DESCRIPTION = createActionName('DELETE_ORDER_DESCRIPTION');
 
 export const startRequest = () => ({ type: START_REQUEST });
 export const endRequest = () => ({ type: END_REQUEST });
@@ -31,6 +33,14 @@ export const productCountDown = (payload) => ({
   type: PRODUCT_COUNT_DOWN,
 });
 export const addOrderData = (payload) => ({ payload, type: ADD_ORDER_DATA });
+export const addOrderDescription = (payload) => ({
+  payload,
+  type: ADD_ORDER_DESCRIPTION,
+});
+export const deleteOrderDescription = (payload) => ({
+  payload,
+  type: DELETE_ORDER_DESCRIPTION,
+});
 
 /* THUNKS */
 
@@ -41,7 +51,7 @@ export const addOrderRequest = (order) => {
     try {
       await axios.post(`${API_URL}/orders`, order);
       dispatch(endRequest());
-      localStorage.clear()
+      localStorage.clear();
     } catch (e) {
       dispatch(errorRequest(e.message));
     }
@@ -105,31 +115,62 @@ export default function reducer(statePart = initialState, action = {}) {
         JSON.stringify(deleteNewState.products),
       );
       return deleteNewState;
-      case PRODUCT_COUNT_DOWN:
-        const product = statePart.products.find(product => product.id === action.payload);
-        let updatedProductsCountDown;
-      
-        if (product) {
-          if (product.quantity > 1) {
-            updatedProductsCountDown = statePart.products.map(product =>
-              product.id === action.payload
-                ? { ...product, quantity: product.quantity - 1 }
-                : product,
-            );
-          } else {
-            updatedProductsCountDown = statePart.products.filter(product => product.id !== action.payload);
-          }
-      
-          const countNewState = {
-            ...statePart,
-            products: updatedProductsCountDown,
-          };
-      
-          localStorage.setItem('cartItems', JSON.stringify(countNewState.products));
-          return countNewState;
+    case PRODUCT_COUNT_DOWN:
+      const product = statePart.products.find(
+        (product) => product.id === action.payload,
+      );
+      let updatedProductsCountDown;
+
+      if (product) {
+        if (product.quantity > 1) {
+          updatedProductsCountDown = statePart.products.map((product) =>
+            product.id === action.payload
+              ? { ...product, quantity: product.quantity - 1 }
+              : product,
+          );
+        } else {
+          updatedProductsCountDown = statePart.products.filter(
+            (product) => product.id !== action.payload,
+          );
         }
-      
-        return statePart;
+
+        const countNewState = {
+          ...statePart,
+          products: updatedProductsCountDown,
+        };
+
+        localStorage.setItem(
+          'cartItems',
+          JSON.stringify(countNewState.products),
+        );
+        return countNewState;
+      }
+
+      return statePart;
+    case ADD_ORDER_DESCRIPTION:
+      const addDesState = {
+        ...statePart,
+        products: statePart.products.map((p) =>
+          p.id === action.payload.id
+            ? { ...p, description: action.payload.description }
+            : p,
+        ),
+      };
+      localStorage.setItem('cartItems', JSON.stringify(addDesState.products));
+      return addDesState;
+
+    case DELETE_ORDER_DESCRIPTION:
+      const deleteDesState = {
+        ...statePart,
+        products: statePart.products.map((p) =>
+          p.id === action.payload ? (({ description, ...rest }) => rest)(p) : p,
+        ),
+      };
+      localStorage.setItem(
+        'cartItems',
+        JSON.stringify(deleteDesState.products),
+      );
+      return deleteDesState;
     case ADD_ORDER_DATA:
       return {
         ...statePart,

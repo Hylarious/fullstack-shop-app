@@ -1,11 +1,9 @@
 import { Body, Controller, Get, NotFoundException, Param, ParseUUIDPipe, Post } from '@nestjs/common';
 import { OrdersService } from './orders.service';
 import { CreateOrderDTO } from './dtos/create-order.dto';
+import { CreateOrderAdditionalDTO } from './dtos/create-order-additional.dto';
 
-type ProductOrder = {
-    id: string;
-    quantity: number;
-  };
+
 
 @Controller('orders')
 export class OrdersController {
@@ -23,7 +21,7 @@ async getById(@Param('id', new ParseUUIDPipe()) id: string) {
     return order
 }
 @Post('/')
-async create(@Body('orderData') orderData: CreateOrderDTO, @Body('products') products: ProductOrder[]){
+async create(@Body('orderData') orderData: CreateOrderDTO, @Body('products') products: CreateOrderAdditionalDTO[]){
     console.log(Body)
     return this.ordersService.create(orderData, products);
 }

@@ -32,6 +32,7 @@ let OrdersService = class OrdersService {
             data: Object.assign(Object.assign({}, orderData), { products: {
                     create: products.map(product => ({
                         quantity: product.quantity,
+                        description: product.description,
                         product: {
                             connect: {
                                 id: product.id

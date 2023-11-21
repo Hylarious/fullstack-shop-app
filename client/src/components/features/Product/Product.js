@@ -12,8 +12,10 @@ const Product = (props) => {
 
   return (
     <Col sm="4">
-      <Card className='my-2'>
-        <img src={`/${props.photos[0].url}`}/>
+      <Card className="my-2">
+        <NavLink to={`/product/${props.id}`}>
+          <img src={`/${props.photos[0].url}`} width='100%' height='300vh' />
+        </NavLink>
         <h4>{props.name}</h4>
         <p> {props.price} zł</p>
         <ButtonGroup>

@@ -25,3 +25,22 @@ a, a:hover, a:visited {
   margin: 1rem auto;
 //   min-height: calc(100vh - 14rem);
 }
+img {
+  object-fit: cover;
+}
+.btn-primary {
+  color: #fff;
+  background-color: #003453;
+  border-color: #003453;
+}
+.btn-primary:hover {
+  background-color: #b8d1ff;
+  color: #020202;
+  border-color: #003453;
+}
+.btn-primary:focus {
+  background-color: #b8d1ff;
+  color: #020202;
+  border-color: #003453;
+}
+

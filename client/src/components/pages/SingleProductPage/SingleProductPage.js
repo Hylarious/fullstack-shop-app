@@ -9,24 +9,31 @@ import {
 } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { getProductById } from '../../../redux/productsRedux';
-import { useState } from 'react';
+import { getProductById, loadProductsByIdsRequest } from '../../../redux/productsRedux';
+import { useEffect, useState } from 'react';
 import QuantityInput from '../../features/QuantityInput/QuantityInput';
 import { addItemToCart } from '../../../redux/cartRedux';
 
 const SingleProductPage = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
+
+
+  useEffect(() => {
+    dispatch(loadProductsByIdsRequest([id]))
+  }, [dispatch, id])
+  
+
   const product = useSelector((state) => getProductById(state, id));
   const [count, setCount] = useState(1);
   const [productAdded, setProductAdded] = useState(false);
 
   const handleCount = (_, count) => {
-    setCount(count);
+      setCount(count);
   };
   const handleAddToCart = (e) => {
     e.preventDefault();
-    for (let i = 0; i <= count; i++) {
+    for (let i = 0; i < count; i++) {
       dispatch(addItemToCart(id));
     }
     setProductAdded(true);
@@ -49,7 +56,7 @@ const SingleProductPage = () => {
             <Carousel>
               {product.photos.map((photo) => (
                 <Carousel.Item key={photo.id}>
-                  <img src={`/${photo.url}`} />
+                  <img src={`/${photo.url}`} width='100%' height='700vh'/>
                 </Carousel.Item>
               ))}
             </Carousel>

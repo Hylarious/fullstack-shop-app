@@ -4,9 +4,11 @@ import { Container, Nav, Navbar} from "react-bootstrap"
 
 const MainMenu = () => {
   return (
-    <Navbar bg="primary" variant="dark" expand="lg" className="mt-4 mb-4 rounded">
+    <Navbar bg="light" data-bs-theme="light" expand="lg" className="mb-4">
 		<Container>
-			<Navbar.Brand as={NavLink} to="/" >Kociamber za włóczką</Navbar.Brand>
+			<Navbar.Brand as={NavLink} to="/" >
+			<img src="logo.png" alt="Logo" width='40%'/>
+			</Navbar.Brand>
 			<div>
 			<Nav className="me-auto">
 				<Nav.Link as={NavLink} to="/cart">Koszyk</Nav.Link>

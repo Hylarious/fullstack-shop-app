@@ -44,6 +44,7 @@ model ProductsOnOrders {
   order Order @relation(fields: [orderId], references: [id])
   orderId String
   quantity Int
+  description String?
 
   @@id([productId, orderId])
 }

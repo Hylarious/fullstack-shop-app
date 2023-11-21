@@ -1,54 +1,53 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { addOrderRequest, getCartProducts } from '../../../redux/cartRedux';
-import { getProductsByIds } from '../../../redux/productsRedux';
+import {
+  getProductsByIds,
+  loadProductsByIdsRequest,
+} from '../../../redux/productsRedux';
 import CartItemsList from '../../features/CartItemsList/CartItemsList';
 import OrderForm from '../../features/OrderForm/OrderForm';
-import { Alert } from 'react-bootstrap';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Alert, Button, Row, Col } from 'react-bootstrap';
+import { useEffect, useState } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 const Cart = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const productsIdWithCount = useSelector(getCartProducts);
-  const productsId = productsIdWithCount.map((p) => p.id);
+
+  const productsId = localStorage.getItem('cartItems')
+    ? JSON.parse(localStorage.getItem('cartItems')).map((p) => p.id)
+    : [];
+
+  useEffect(() => {
+    dispatch(loadProductsByIdsRequest(productsId));
+  }, [dispatch]);
+
+  const productsIdAdditionalInfo = useSelector(getCartProducts);
   const products = useSelector((state) => getProductsByIds(state, productsId));
-
-  const [orderSent, setOrderSent] = useState(false);
-
   const productsWithCount = products.map((product) => ({
     ...product,
-    quantity: productsIdWithCount.find((p) => product.id === p.id).quantity,
+    quantity: productsIdAdditionalInfo.find((p) => product.id === p.id)
+      .quantity,
   }));
-
-  console.log(productsWithCount);
-  const sendOrder = (orderData) => {
-    if (productsId && orderData)
-      dispatch(
-        addOrderRequest({
-          orderData: { ...orderData },
-          products: productsIdWithCount,
-        }),
-      );
-    setOrderSent(true);
-    setTimeout(() => {
-      navigate('/');
-    }, 3000);
-  };
 
   return (
     <div>
-      {orderSent && (
-        <Alert variant="success">
-          <Alert.Heading>
-            Dziękujemy, twoje zamówienie zostało wysłane!
-          </Alert.Heading>
-        </Alert>
-      )}
+      {productsId.length > 0 ? (
+        <div>
+          <p>
+            Jeśli masz jakieś szczególne wymagania do któregoś z produktu, dodaj
+            je w uwagach. Skontaktujemy się z Tobą mailowo w tej sprawie!
+          </p>
+          <CartItemsList products={productsWithCount} />
 
-      <CartItemsList products={productsWithCount} />
-      
-      <OrderForm action={sendOrder} />
+          <Button as={NavLink} to="/cart/summary">
+            Dalej &#10095;
+          </Button>
+        </div>
+      ) : (
+        <Row className="justify-content-center">
+          <Col xs="auto">Koszyk jest pusty...</Col>
+        </Row>
+      )}
     </div>
   );
 };

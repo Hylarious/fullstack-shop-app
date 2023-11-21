@@ -8,5 +8,6 @@ export declare class OrdersService {
     create(orderData: Omit<Order, 'id' | 'createAt' | 'updateAt'>, products: {
         id: string;
         quantity: number;
+        description: string;
     }[]): Promise<Order>;
 }

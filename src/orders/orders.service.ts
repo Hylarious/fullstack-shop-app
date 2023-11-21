@@ -21,7 +21,7 @@ export class OrdersService {
 
     public create(
         orderData: Omit<Order, 'id' | 'createAt' | 'updateAt'>,
-        products: { id: string, quantity: number }[]
+        products: { id: string, quantity: number, description: string }[]
     ): Promise<Order> {
         return this.prismaService.order.create({
             data: {
@@ -29,6 +29,7 @@ export class OrdersService {
                 products: {
                     create: products.map(product => ({
                         quantity: product.quantity,
+                        description: product.description,
                         product: {
                             connect: {
                                 id: product.id

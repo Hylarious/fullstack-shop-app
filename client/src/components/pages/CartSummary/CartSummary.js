@@ -13,8 +13,6 @@ const CartSummary = () => {
   const productsIdWithInfo = useSelector(getCartProducts);
   const [orderSent, setOrderSent] = useState(false);
 
-  console.log(productsIdWithInfo);
-
   const sendOrder = (orderData) => {
     if (productsIdWithInfo && orderData)
       dispatch(

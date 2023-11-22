@@ -6,22 +6,26 @@ const QuantityInput = (props) => {
 
   const handleCountUp = (e) => {
     e.preventDefault();
-    const newCount = count + 1
+    const newCount = count + 1;
     setCount(newCount);
-    props.countUp(e, count);
+    props.countUp(e, newCount);
   };
+
   const handleCountDown = (e) => {
     e.preventDefault();
     if (count > 0) {
-      const newCount = count - 1 
+      const newCount = count - 1;
       setCount(newCount);
-      props.countDown(e, count);
+      props.countDown(e, newCount);
     }
   };
+
   return (
-    <ButtonGroup> 
+    <ButtonGroup className="m-3 quantityInput">
       <Button onClick={handleCountDown}>-</Button>
-      <div className='mx-2'>{count}</div>
+      <div>
+        {count}
+      </div>
       <Button onClick={handleCountUp}>+</Button>
     </ButtonGroup>
   );

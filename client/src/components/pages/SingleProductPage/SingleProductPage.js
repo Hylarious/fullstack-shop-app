@@ -9,7 +9,10 @@ import {
 } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { getProductById, loadProductsByIdsRequest } from '../../../redux/productsRedux';
+import {
+  getProductById,
+  loadProductsByIdsRequest,
+} from '../../../redux/productsRedux';
 import { useEffect, useState } from 'react';
 import QuantityInput from '../../features/QuantityInput/QuantityInput';
 import { addItemToCart } from '../../../redux/cartRedux';
@@ -18,25 +21,20 @@ const SingleProductPage = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
 
-
   useEffect(() => {
-    dispatch(loadProductsByIdsRequest([id]))
-  }, [dispatch, id])
-  
+    dispatch(loadProductsByIdsRequest([id]));
+  }, [dispatch, id]);
 
   const product = useSelector((state) => getProductById(state, id));
   const [count, setCount] = useState(1);
   const [productAdded, setProductAdded] = useState(false);
 
- 
   const handleCount = (_, newCount) => {
-      setCount(newCount);
+    setCount(newCount);
   };
   const handleAddToCart = (e) => {
     e.preventDefault();
-    for (let i = 0; i < count; i++) {
-      dispatch(addItemToCart(id));
-    }
+    dispatch(addItemToCart(id, count));
     setProductAdded(true);
     setTimeout(() => {
       setProductAdded(false);
@@ -52,16 +50,16 @@ const SingleProductPage = () => {
       )}
       {product ? (
         <Row>
-          <Col xs="6">
+          <Col xs={12} md={6}>
             <Carousel>
               {product.photos.map((photo) => (
                 <Carousel.Item key={photo.id}>
-                  <img src={`/${photo.url}`} width='100%' height='700vh'/>
+                  <img src={`/${photo.url}`} width="100%" height="500vh" />
                 </Carousel.Item>
               ))}
             </Carousel>
           </Col>
-          <Col xs="6">
+          <Col xs={12} md={6}>
             <h2>{product.name}</h2>
             <h4>{product.description}</h4>
             <p>{product.price} zł</p>
@@ -79,5 +77,4 @@ const SingleProductPage = () => {
     </div>
   );
 };
-
 export default SingleProductPage;

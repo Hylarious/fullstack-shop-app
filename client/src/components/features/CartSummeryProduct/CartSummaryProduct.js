@@ -35,9 +35,6 @@ const CartSummaryProduct = ({ id }) => {
           <p>{productWithInfo.description}</p>
         </Row>
       )}
-      {/* <Row justify-content-end>
-          <p>{productWithInfo.description}</p>
-        </Row> */}
     </div>
   );
 };

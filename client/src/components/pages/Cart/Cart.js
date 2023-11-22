@@ -5,10 +5,9 @@ import {
   loadProductsByIdsRequest,
 } from '../../../redux/productsRedux';
 import CartItemsList from '../../features/CartItemsList/CartItemsList';
-import OrderForm from '../../features/OrderForm/OrderForm';
-import { Alert, Button, Row, Col } from 'react-bootstrap';
-import { useEffect, useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import {  Button, Row, Col } from 'react-bootstrap';
+import { useEffect } from 'react';
+import { NavLink} from 'react-router-dom';
 
 const Cart = () => {
   const dispatch = useDispatch();

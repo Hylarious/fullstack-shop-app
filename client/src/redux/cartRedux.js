@@ -18,13 +18,16 @@ const PRODUCT_COUNT_DOWN = createActionName('PRODUCT_COUNT_DOWN');
 const ADD_ORDER_DATA = createActionName('ADD_ORDER_DATA');
 const ADD_ORDER_DESCRIPTION = createActionName('ADD_ORDER_DESCRIPTION');
 const DELETE_ORDER_DESCRIPTION = createActionName('DELETE_ORDER_DESCRIPTION');
-const DELETE_ITEMS = createActionName('DELETE_ITEMS')
+const DELETE_ITEMS = createActionName('DELETE_ITEMS');
 
 export const startRequest = () => ({ type: START_REQUEST });
 export const endRequest = () => ({ type: END_REQUEST });
 export const errorRequest = (error) => ({ error, type: ERROR_REQUEST });
-
-export const addItemToCart = (payload) => ({ payload, type: ADD_ITEM_TO_CART });
+export const addItemToCart = (payload, quantity) => ({
+  payload,
+  quantity,
+  type: ADD_ITEM_TO_CART,
+});
 export const deleteItemsFormCart = (payload) => ({
   payload,
   type: DELETE_ITEMS_FORM_CART,
@@ -42,17 +45,16 @@ export const deleteOrderDescription = (payload) => ({
   payload,
   type: DELETE_ORDER_DESCRIPTION,
 });
-export const deleteProducts = (payload) => ({ payload, type: DELETE_ITEMS})
+export const deleteProducts = (payload) => ({ payload, type: DELETE_ITEMS });
 
 /* THUNKS */
 
 export const addOrderRequest = (order) => {
-
   return async (dispatch) => {
     dispatch(startRequest());
     try {
       await axios.post(`${API_URL}/orders`, order);
-      dispatch(deleteProducts())
+      dispatch(deleteProducts());
       dispatch(endRequest());
       localStorage.clear();
     } catch (e) {
@@ -88,13 +90,13 @@ export default function reducer(statePart = initialState, action = {}) {
       if (productExists) {
         updatedProducts = statePart.products.map((product) =>
           product.id === action.payload
-            ? { ...product, quantity: product.quantity + 1 }
+            ? { ...product, quantity: product.quantity + action.quantity }
             : product,
         );
       } else {
         updatedProducts = [
           ...statePart.products,
-          { id: action.payload, quantity: 1 },
+          { id: action.payload, quantity: action.quantity },
         ];
       }
 
@@ -179,12 +181,12 @@ export default function reducer(statePart = initialState, action = {}) {
         ...statePart,
         orderData: { ...action.payload },
       };
-      case DELETE_ITEMS: 
-        return {
-          ...statePart, 
-          products: []
-        }
-      
+    case DELETE_ITEMS:
+      return {
+        ...statePart,
+        products: [],
+      };
+
     case START_REQUEST:
       return {
         ...statePart,

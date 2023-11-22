@@ -43,4 +43,28 @@ img {
   color: #020202;
   border-color: #003453;
 }
+.cartDot {
+  position: relative;
+  div {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: #003453;
+  border-radius: 50%;
+  top: 3px;
+  left: 62px;
+  color:#fff;
+  p{
+    font-size: 11px;
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  
+  }
+  
+}
 

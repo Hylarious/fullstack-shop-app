@@ -31,7 +31,6 @@ let OrdersController = class OrdersController {
         return order;
     }
     async create(orderData, products) {
-        console.log(common_1.Body);
         return this.ordersService.create(orderData, products);
     }
 };

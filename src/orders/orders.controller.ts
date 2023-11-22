@@ -22,7 +22,6 @@ async getById(@Param('id', new ParseUUIDPipe()) id: string) {
 }
 @Post('/')
 async create(@Body('orderData') orderData: CreateOrderDTO, @Body('products') products: CreateOrderAdditionalDTO[]){
-    console.log(Body)
     return this.ordersService.create(orderData, products);
 }
     

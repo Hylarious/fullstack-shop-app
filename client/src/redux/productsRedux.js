@@ -55,7 +55,6 @@ export const loadProductsByIdsRequest = (ids) => {
     for (let id of ids) {
       dispatch(startRequest({ name: `LOAD_PRODUCT_BY_ID ${id}` }));
       try {
-        console.log(id)
         let res = await axios.get(`${API_URL}/products/${id}`);
         dispatch(loadProductById(res.data));
         dispatch(endRequest({ name: `LOAD_PRODUCT_BY_ID ${id}` }));

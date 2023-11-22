@@ -28,8 +28,9 @@ const SingleProductPage = () => {
   const [count, setCount] = useState(1);
   const [productAdded, setProductAdded] = useState(false);
 
-  const handleCount = (_, count) => {
-      setCount(count);
+ 
+  const handleCount = (_, newCount) => {
+      setCount(newCount);
   };
   const handleAddToCart = (e) => {
     e.preventDefault();
@@ -42,7 +43,6 @@ const SingleProductPage = () => {
     }, 3000);
   };
 
-  console.log(product);
   return (
     <div>
       {productAdded && (

@@ -18,6 +18,7 @@ const PRODUCT_COUNT_DOWN = createActionName('PRODUCT_COUNT_DOWN');
 const ADD_ORDER_DATA = createActionName('ADD_ORDER_DATA');
 const ADD_ORDER_DESCRIPTION = createActionName('ADD_ORDER_DESCRIPTION');
 const DELETE_ORDER_DESCRIPTION = createActionName('DELETE_ORDER_DESCRIPTION');
+const DELETE_ITEMS = createActionName('DELETE_ITEMS')
 
 export const startRequest = () => ({ type: START_REQUEST });
 export const endRequest = () => ({ type: END_REQUEST });
@@ -41,15 +42,17 @@ export const deleteOrderDescription = (payload) => ({
   payload,
   type: DELETE_ORDER_DESCRIPTION,
 });
+export const deleteProducts = (payload) => ({ payload, type: DELETE_ITEMS})
 
 /* THUNKS */
 
 export const addOrderRequest = (order) => {
-  console.log(order);
+
   return async (dispatch) => {
     dispatch(startRequest());
     try {
       await axios.post(`${API_URL}/orders`, order);
+      dispatch(deleteProducts())
       dispatch(endRequest());
       localStorage.clear();
     } catch (e) {
@@ -176,6 +179,12 @@ export default function reducer(statePart = initialState, action = {}) {
         ...statePart,
         orderData: { ...action.payload },
       };
+      case DELETE_ITEMS: 
+        return {
+          ...statePart, 
+          products: []
+        }
+      
     case START_REQUEST:
       return {
         ...statePart,

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Button, Col, Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
+import { Navigate } from 'react-router-dom';
 
 const OrderForm = (props) => {
   const {
@@ -22,6 +23,7 @@ const OrderForm = (props) => {
     if (address && name && email) {
       props.action({ name, email, address });
     }
+    <Navigate to='/'/>
   };
 
   return (

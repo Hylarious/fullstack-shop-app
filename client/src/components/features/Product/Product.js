@@ -14,15 +14,15 @@ const Product = (props) => {
     <Col sm="6" md="4" className="my-2">
       <Card className="card mb-5">
         <NavLink to={`/product/${props.id}`}>
-          <img src={`/${props.photos[0].url}`} width="100%" height="300vh" />
+          <img src={`/${props.photos[0].url}`} alt={props.name} width="100%" height="300vh" />
         </NavLink>
         <Card.Body>
           <Card.Title>
             {' '}
-            <h4>{props.name}</h4>
+            {props.name}
           </Card.Title>
           <Card.Text>
-            <p> {props.price} zł</p>
+            {props.price} zł
           </Card.Text>
           <div className="d-flex justify-content-center">
           <Button className="me-2" onClick={handleAddToCart}>
@@ -33,8 +33,6 @@ const Product = (props) => {
           </Button>
         </div>
         </Card.Body>
-
-        
       </Card>
     </Col>
   );

@@ -55,7 +55,7 @@ const CartItem = (props) => {
       <Row>
         <Col xs="12" sm="6">
           <Stack className="my-3" direction="horizontal" gap={3}>
-            <img width="100px" src={`/${props.photos[0].url}`} />
+            <img width="100px" src={`/${props.photos[0].url}`} alt={props.name}/>
             <h4>{props.name}</h4>
           </Stack>
         </Col>

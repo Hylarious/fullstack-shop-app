@@ -54,7 +54,7 @@ const SingleProductPage = () => {
             <Carousel>
               {product.photos.map((photo) => (
                 <Carousel.Item key={photo.id}>
-                  <img src={`/${photo.url}`} width="100%" height="500vh" />
+                  <img src={`/${photo.url}`} alt={product.name} width="100%" height="500vh" />
                 </Carousel.Item>
               ))}
             </Carousel>

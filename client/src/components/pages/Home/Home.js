@@ -17,7 +17,7 @@ const Home = () => {
     const requests = useSelector(getRequests);
 
     if(requests['LOAD_PRODUCTS'] && requests['LOAD_PRODUCTS'].pending) return <ProgressBar now={60} />
-    else if(requests['LOAD_PRODUCTS'] && requests['LOAD_PRODUCTS'].error) return <Alert color="warning">{requests.error}</Alert>
+    else if(requests['LOAD_PRODUCTS'] && requests['LOAD_PRODUCTS'].error) return <Alert color="warning">Coś poszło nie tak... Spróbuj później</Alert>
     else if((requests['LOAD_PRODUCTS'] && !requests['LOAD_PRODUCTS'].success) || !products.length) return <Alert color='info'>No Products!</Alert>
     else if(requests['LOAD_PRODUCTS'] && requests['LOAD_PRODUCTS'].success) return (
         <Products products={products} />

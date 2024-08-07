@@ -28,7 +28,8 @@ exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
             serve_static_1.ServeStaticModule.forRoot({
-                rootPath: (0, path_1.join)(__dirname, '../../', 'client', 'build')
+                rootPath: (0, path_1.join)(__dirname, '../../', 'client', 'build'),
+                exclude: ['api/*']
             }),
             products_module_1.ProductsModule,
             orders_module_1.OrdersModule

@@ -3,14 +3,14 @@
     "name": "fullstack-shop-app",
     "builds": [
       {
-        "src": "src/main.ts",
+        "src": "dist/main.ts",
         "use": "@vercel/node"
       }
     ],
     "routes": [
       {
         "src": "/(.*)",
-        "dest": "src/main.ts"
+        "dest": "dist/main.ts"
       },
       {
         "src": "/static/(.*)",

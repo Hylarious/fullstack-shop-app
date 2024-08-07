@@ -3,7 +3,7 @@
     "name": "fullstack-shop-app",
     "builds": [
       {
-        "src": "src/main.ts",
+        "src": "dist/main.ts",
         "use": "@vercel/node"
       },
       {
@@ -14,7 +14,7 @@
     "routes": [
     {
       "src": "/(.*)",
-      "dest": "src/main.js",
+      "dest": "dist/main.js",
       "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS"]
     }
     ]
